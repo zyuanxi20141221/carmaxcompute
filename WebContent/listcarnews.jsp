@@ -7,26 +7,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>list car</title>
 <style type="text/css">
-
+   body{
+   
+       }
    #btn{
        margin-top:15px;
    }
    
    table{
-           width:100%;
+           text-align:left;
+           width:992px;
            border:1;
            cellspacing:0;
            table-layout: fixed;
         }
-    .index{width:8%;}
-    .id{width:8%;}
-    .title{width:20%;}
-    .pubtime{width:15%;}
-    .source{width:10%;}
-    .category{width:15%;}
-    .author{width:10%;}
-    .content{width:80%;}
-    .keywords{width:20%;}
+    .index{width:2px;}
+    .title{width:30px;}
+    .pubtime{width:20px;}
     td {white-space:nowrap;overflow:hidden;align:center;}
     
     #bottom{
@@ -50,27 +47,15 @@
      <table id="carinfo_tb">
             <tr>
                 <th class="index">序号</th>
-                <th class="id">id</th>
                 <th class="title">标题</th>
                 <th class="pubtime">发布时间</th>
-                <th class="source">来源</th>
-                <th class="category">资讯分类</th>
-                <th class="author">作者</th>
-                <th class="content">资讯内容</th>
-                <th class="keywords">关键词</th>
             </tr>
         <c:forEach var = "car" items = "${list}" varStatus="varStatus">
-        <tr bgcolor="${varStatus.index%2==1?'efefef':'ffffff'}">
-            <td><c:out value="${varStatus.index + 1}"></c:out></td>
-            <td><c:out value="${car.id}"></c:out></td>
-            <td><c:out value="${car.title}"></c:out></td>
-            <td><c:out value="${car.publishtime}"></c:out></td>
-            <td><c:out value="${car.source}"></c:out></td>
-            <td><c:out value="${car.category}"></c:out></td>
-            <td><c:out value="${car.author}"></c:out></td>
-            <td><c:out value="${car.content}"></c:out></td>
-            <td><c:out value="${car.keywords}"></c:out></td>
-        </tr>
+          <tr bgcolor="${varStatus.index%2==1?'efefef':'ffffff'}">
+             <td><c:out value="${varStatus.index + 1}"></c:out></td>
+             <td><a href="${pageContext.request.contextPath}/CarInfoServlet?action=detail&id=${car.id}"><c:out value="${car.title}"></c:out></a></td>
+             <td><c:out value="${car.publishtime}"></c:out></td>
+          </tr>
         </c:forEach>
         </table>
  <div id="bottom">

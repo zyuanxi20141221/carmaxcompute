@@ -88,4 +88,29 @@ public class CarDAO {
 		}
 		return list;
 	}
+	
+	public Car getCarBeanById(int id){
+		Car car = null;
+		String sql = "select * from car_news where id = '"+id+"'";
+		ResultSet rs = null;
+		try {
+			rs = DBHelper.executeQuery(sql);
+			if(rs.next()){
+				long _id = rs.getLong("id");
+				String title = rs.getString("title");
+				String pubtime = rs.getString("publish_time");
+				String source = rs.getString("source");
+				String category = rs.getString("category");
+				String author = rs.getString("author");
+				String content = rs.getString("content");
+				Date createtime = rs.getDate("create_time");
+				String keywords = rs.getString("keywords");
+				car = new Car(_id, title, pubtime, source, category, author, content, createtime, keywords);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return car;
+	}
 }
