@@ -1,17 +1,17 @@
-package com.goopai.carmaxcompute.servlet;
+package com.goopai.carmaxcompute.web.controller;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.goopai.carmaxcompute.dao.CarDao;
+import com.goopai.carmaxcompute.dao.impl.CarDaoImpl;
 import com.goopai.carmaxcompute.db.PageBean;
-import com.goopai.carmaxcompute.entity.Car;
-import com.goopai.carmaxcompute.entity.CarDAO;
+import com.goopai.carmaxcompute.domain.Car;
+import com.goopai.carmaxcompute.service.impl.CarBusinessServiceImpl;
 
 /**
  * Servlet implementation class CarInfoServlet
@@ -43,35 +43,35 @@ public class CarInfoServlet extends HttpServlet {
 		if (pageParam != null) {
 			if (pageParam.equals("first")) {
 				page.setPage(1);
-				CarDAO carDAO = new CarDAO();
-				list = carDAO.getCarnewsChaSQL("car_news", page);
+				CarBusinessServiceImpl carServiceImpl = new CarBusinessServiceImpl();
+				list = carServiceImpl.getCarNewsByPage(page);
 			} else if (pageParam.equals("next")) {
 				int nextpage = page.getNextPage();
 				page.setPage(nextpage);
-				CarDAO carDAO = new CarDAO();
-				list = carDAO.getCarnewsChaSQL("car_news", page);
+				CarBusinessServiceImpl carServiceImpl = new CarBusinessServiceImpl();
+				list = carServiceImpl.getCarNewsByPage(page);
 			} else if (pageParam.equals("pre")) {
 				int nextpage = page.getLastPage();
 				page.setPage(nextpage);
-				CarDAO carDAO = new CarDAO();
-				list = carDAO.getCarnewsChaSQL("car_news", page);
+				CarBusinessServiceImpl carServiceImpl = new CarBusinessServiceImpl();
+				list = carServiceImpl.getCarNewsByPage(page);
 			} else if (pageParam.equals("last")) {
 				page.setPage(page.getTotalPage());
-				CarDAO carDAO = new CarDAO();
-				list = carDAO.getCarnewsChaSQL("car_news", page);
+				CarBusinessServiceImpl carServiceImpl = new CarBusinessServiceImpl();
+				list = carServiceImpl.getCarNewsByPage(page);
 			}
 			request.setAttribute("list", list);
 			request.setAttribute("page", page);
-			request.getRequestDispatcher("./listcarnews.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/listcarnews.jsp").forward(request, response);
 		}
 		if (action != null) {
 			if (action.equals("detail")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				System.out.println("id:" + id);
-				CarDAO carDAO = new CarDAO();
+				CarDao carDAO = new CarDaoImpl();
 				Car car = carDAO.getCarBeanById(id);
 				request.setAttribute("object", car);
-				request.getRequestDispatcher("./carcontent.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/jsp/carcontent.jsp").forward(request, response);
 			}
 		}
 	}

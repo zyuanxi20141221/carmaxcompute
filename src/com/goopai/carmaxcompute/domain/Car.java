@@ -1,4 +1,4 @@
-package com.goopai.carmaxcompute.entity;
+package com.goopai.carmaxcompute.domain;
 
 import java.util.Date;
 
@@ -14,6 +14,9 @@ public class Car {
 	private Date createtime;
 	private String keywords;
 
+	public Car(){
+	}
+	
 	public Car(long id, String _title, String _pubtime, String _source, String _category, String _author, String _content, Date _createtime, String _keywords) {
 		this.id = id;
 		this.title = _title;

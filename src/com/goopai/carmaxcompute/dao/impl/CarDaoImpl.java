@@ -1,14 +1,16 @@
-package com.goopai.carmaxcompute.entity;
+package com.goopai.carmaxcompute.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import com.goopai.carmaxcompute.dao.CarDao;
 import com.goopai.carmaxcompute.db.DBHelper;
 import com.goopai.carmaxcompute.db.PageBean;
+import com.goopai.carmaxcompute.domain.Car;
 
-public class CarDAO {
+public class CarDaoImpl implements CarDao {
 
 	public int count(String name) {
 		int count = 0;
@@ -25,11 +27,15 @@ public class CarDAO {
 		return count;
 	}
 
-	public List getCarnewsChaSQL(String name, PageBean page) {
+	/* (non-Javadoc)
+	 * @see com.goopai.carmaxcompute.dao.impl.CarDao#getCarnewsChaSQL(java.lang.String, com.goopai.carmaxcompute.db.PageBean)
+	 */
+	@Override
+	public List getCarnewsChaSQL(PageBean page) {
 		List<Car> list = new ArrayList<>();
 		if (page != null) {
 			if (page.getTotalCount() == 0) {
-				page.setTotalCount(count(name));
+				page.setTotalCount(count("car_news"));
 			}
 			String sqlString = "select * from car_news limit " + page.getStart() + "," + page.getPageSize();
 			System.out.println("sql:" + sqlString);
@@ -55,6 +61,10 @@ public class CarDAO {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.goopai.carmaxcompute.dao.impl.CarDao#getAllCarNews()
+	 */
+	@Override
 	public List getAllCarNews() {
 
 		List<Car> list = new ArrayList<>();
@@ -89,6 +99,10 @@ public class CarDAO {
 		return list;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.goopai.carmaxcompute.dao.impl.CarDao#getCarBeanById(int)
+	 */
+	@Override
 	public Car getCarBeanById(int id){
 		Car car = null;
 		String sql = "select * from car_news where id = '"+id+"'";
