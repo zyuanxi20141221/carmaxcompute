@@ -25,7 +25,6 @@ public class CarInfoServlet extends HttpServlet {
 	 */
 	public CarInfoServlet() {
 		super();
-
 	}
 
 	/**
